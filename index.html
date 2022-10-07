@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shower Thoughts Weaviate Demo</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+<h1>Shower thoughts Weaviate demo</h1>
+<form id="search">
+    <label>
+        <em>Fun topics to search for: cats, internet, battery, garbage, search, machine learning, ...</em>
+        <input type="text" name="topic" placeholder="cats / internet / battery / ..." />
+    </label>
+
+    <button type="submit">Search</button>
+</form>
+<ul id="shower-thoughts">
+    <!-- shower thoughts go here -->
+</ul>
+<script type="module">
+    import { request, gql } from 'graphql-request';
+
+    const list = document.querySelector('#shower-thoughts');
+
+    // Create a shower thought element
+    function createSt(st) {
+      const li = document.createElement('li');
+      li.innerHTML = `${st.text} (<a href="${st.url}" target="_blank">${st.upvotes}</a>)`;
+      return li;
+    }
+
+    function search(event) {
+      event.preventDefault();
+      list.innerHTML = '';  // clear the list
+      const topic = this['topic'].value;
+
+      const query = gql`
+{
+  Get {
+    ShowerThought(
+      nearText: { concepts: ["${topic}"] }
+      limit: 10
+    ) {
+      text
+      url
+      upvotes
+    }
+  }
+}
+`;
+      request(process.env.GRAPHQL_URL, query).then(data => {
+        for (const st of data.Get.ShowerThought)
+          list.appendChild(createSt(st));
+      });
+    }
+    document.querySelector('#search').onsubmit = search;
+</script>
+</body>
+</html>

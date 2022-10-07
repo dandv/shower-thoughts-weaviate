@@ -1,0 +1,29 @@
+body {
+    width: 80ex;  /* reading ergonomics */
+    margin: 0 auto;  /* center */
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li::before {
+    content: "🤔 ";
+}
+
+ul li {
+    padding: 0.75em 0;
+}
+
+/* Alternate font color */
+ul > li:nth-of-type(odd) {
+    color: #444;
+}
+
+ul li a {
+    text-decoration: none;
+}
+
+input {
+    margin: 0.5em 0;
+}
