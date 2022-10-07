@@ -21,7 +21,7 @@ npm install
 # npm run reddit  # shower-thoughts.json is included in the repo
 # npm run ingest  # the file has already been imported
 nano .env  # add the OpenAI API key
-npm run server
+npm run server  # ...then in a new terminal...
 npm start
 ```
 
@@ -49,3 +49,12 @@ npm start
 * In the Wikipedia dataset, `hasParagraphs` suggests a boolean value. Just `paragraphs` would suggest the paragraphs themselves.
 
 * The `order` property isn’t explained at https://weaviate.io/developers/weaviate/current/getting-started/query.html, and it should be added to the [glossary](https://weaviate.io/developers/weaviate/current/more-resources/glossary.html)
+
+* https://weaviate.io/developers/weaviate/current/tutorials/how-to-import-data.html redirects to the batch import, and a few pages refer to it:
+  * https://weaviate.io/developers/weaviate/current/tutorials/how-to-perform-a-semantic-search.html
+  * https://weaviate.io/developers/weaviate/current/graphql-references/index.html  
+
+  Should it redirect to https://weaviate.io/developers/weaviate/current/getting-started/import.html ?
+* "configure" might sound better than "regulate", e.g. in **“Regulate semantic indexing”** at:
+  * https://weaviate.io/developers/weaviate/current/schema/schema-configuration.html#vectorizer
+  * https://weaviate.io/developers/weaviate/current/schema/schema-configuration.html#regulate-semantic-indexing
