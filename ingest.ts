@@ -120,4 +120,4 @@ try {
 
 // Import the shower thoughts
 await importData();
-console.log('Import finished, but objects may have been skipped. Re-run no new objects have been imported.');
+console.log('Import finished, but objects may have been skipped. Re-run until no new objects have been imported.');

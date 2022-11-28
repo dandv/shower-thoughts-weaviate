@@ -24,37 +24,3 @@ nano .env  # add the OpenAI API key
 npm run server  # ...then in a new terminal...
 npm start
 ```
-
-## Weaviate feedback / issues discovered during development
-
-* [Need explicit documentation for the JavaScript client methods](https://github.com/semi-technologies/weaviate-javascript-client/issues/90)
-
-* OpenAI requiring an API key for querying, means the GraphiQL explorer can’t be used (there’s no way to set header values)
-
-* > "Starting with v1.11.0 the OPENAI_APIKEY variable is now optional and you can instead provide the key at insert/query time as an HTTP header."
-  - that was not exctly the case. When `OPENAI_APIKEY` was set, the JavaScript client didn’t proxy it to text2vec-openai.
-
-* The WCS console logs out all clients every hour.
-
-* Would help to mention how to prevent importing duplicate objects. Critical when the import fails, e.g. due to rate limits.
-
-* Document that deleting a schema also deletes all objects of that type.
-
-* Would help to explain why `dataType` is an array of one element.
-
-* The Import tutorial should mention that vectorWeights will be null, and explain why `vector` isn't output at `/v1/objects`
-
-* https://weaviate.io/developers/weaviate/current/schema/schema-configuration.html#class-object explains the `vectorizer` property, but not the `moduleConfig` one.
-
-* In the Wikipedia dataset, `hasParagraphs` suggests a boolean value. Just `paragraphs` would suggest the paragraphs themselves.
-
-* The `order` property isn’t explained at https://weaviate.io/developers/weaviate/current/getting-started/query.html, and it should be added to the [glossary](https://weaviate.io/developers/weaviate/current/more-resources/glossary.html)
-
-* https://weaviate.io/developers/weaviate/current/tutorials/how-to-import-data.html redirects to the batch import, and a few pages refer to it:
-  * https://weaviate.io/developers/weaviate/current/tutorials/how-to-perform-a-semantic-search.html
-  * https://weaviate.io/developers/weaviate/current/graphql-references/index.html  
-
-  Should it redirect to https://weaviate.io/developers/weaviate/current/getting-started/import.html ?
-* "configure" might sound better than "regulate", e.g. in **“Regulate semantic indexing”** at:
-  * https://weaviate.io/developers/weaviate/current/schema/schema-configuration.html#vectorizer
-  * https://weaviate.io/developers/weaviate/current/schema/schema-configuration.html#regulate-semantic-indexing
