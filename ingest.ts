@@ -23,8 +23,9 @@ const showerThoughtClass = {
   vectorizer: 'text2vec-openai',
   moduleConfig: {
     'text2vec-openai': {
-      model: 'babbage',
-      type: 'text',  // as opposed to 'code;
+      model: 'davinci',
+      modelVersion: '003',
+      type: 'text',  // as opposed to 'code';
     },
   },
 
