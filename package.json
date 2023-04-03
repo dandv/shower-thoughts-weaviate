@@ -12,7 +12,8 @@
     "ingest": "node $npm_package_config_nodeParams ingest.ts",
     "server": "node $npm_package_config_nodeParams server.ts",
     "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "clean": "rm -rf .parcel-cache dist node_modules && npm install"
   },
   "repository": {
     "type": "git",
@@ -34,7 +35,7 @@
     "http-proxy-middleware": "^2.0.6",
     "node-fetch": "^3.2.10",
     "parcel": "^2.7.0",
-    "weaviate-client": "^2.12.1"
+    "weaviate-ts-client": "^1.0.0-beta.3"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.39.0",

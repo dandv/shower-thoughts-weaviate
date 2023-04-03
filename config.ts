@@ -2,7 +2,8 @@
 import 'dotenv/config';
 export const config = {
   filename: 'shower-thoughts.json',
-  host: 'shower-thoughts.semi.network/',
+  host: process.env.WEAVIATE_HOST,
   scheme: 'https',
+  weaviateApiKey: process.env.WEAVIATE_API_KEY,
   openAiApiKey: process.env.OPENAI_APIKEY,
 };

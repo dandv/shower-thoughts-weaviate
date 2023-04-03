@@ -5,13 +5,13 @@
  * - import the data into the cluster, trying to account for the OpenAI rate limiting
  */
 import { config } from './config';
-import weaviate from 'weaviate-client';
+import weaviate, { ApiKey } from 'weaviate-ts-client';
 import showerThoughts from './shower-thoughts.json' assert { type: 'json' };
 
 const client = weaviate.client({
   scheme: config.scheme,
   host: config.host,
-  // simply having the env var set isn't sufficient - https://github.com/semi-technologies/weaviate-javascript-client/issues/89
+  apiKey: new ApiKey(config.weaviateApiKey),
   headers: { 'X-OpenAI-Api-Key': config.openAiApiKey },
 });
 
@@ -73,6 +73,7 @@ async function exists(showerThoughtText: string): Promise<boolean> {
   return result.data.Get.ShowerThought.length > 0;
 }
 
+let potentialErrors = 0;
 async function importData() {
   const batchSize = 60;
   let batcher = client.batch.objectsBatcher();
@@ -83,8 +84,10 @@ async function importData() {
       const response = await batcher.do();
       // Check for vectorizer errors like "OpenAI API Key: no api key found" or "Rate limit reached"
       const error = response.find(r => r.result.errors?.error[0]?.message);
-      if (error)
+      if (error) {
+        potentialErrors++;
         throw new Error(error.result.errors.error[0].message);
+      }
       console.log(`Imported ${response.length} objects.`);
     } catch (e) {
       console.error(e.message);
@@ -103,7 +106,7 @@ async function importData() {
     }
     if (counter >= batchSize) {
       await importBatch();
-      await sleep(80 * 1000);  // 70s still resulted in rate limiting
+      // await sleep(80 * 1000);  // uncomment if necessary; 70s still resulted in rate limiting
       batcher = client.batch.objectsBatcher();
       counter = 0;
     }
@@ -114,11 +117,18 @@ async function importData() {
 
 // Create the schema
 try {
+  // await client.schema.classDeleter().withClassName('ShowerThought').do();  // uncomment to delete all objects
   await client.schema.classCreator().withClass(showerThoughtClass).do();
 } catch (e) {
-  console.error('Error creating schema:', e);
+  // If the schema already exists, that's fine. Otherwise, re-throw.
+  if (e.message.search('422') === -1)  // https://github.com/weaviate/weaviate/issues/2708
+    throw e;
 }
 
+console.log('Schema ready, importing data...');
 // Import the shower thoughts
 await importData();
-console.log('Import finished, but objects may have been skipped. Re-run until no new objects have been imported.');
+if (potentialErrors)
+  console.log('Some object were skipped during import. Re-run until no new objects have been imported.');
+else
+  console.log('Import finished.');
