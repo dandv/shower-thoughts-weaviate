@@ -32,7 +32,7 @@ const showerThoughtClass = {
   properties: [
     {
       name: 'text',
-      dataType: ['string'],
+      dataType: ['text'],
       description: 'The text of the shower thought',
     },
     {
@@ -42,12 +42,12 @@ const showerThoughtClass = {
     },
     {
       name: 'author',
-      dataType: ['string'],
+      dataType: ['text'],
       description: 'The reddit username of the author',
     },
     {
       name: 'url',
-      dataType: ['string'],
+      dataType: ['text'],
       description: 'Link to the reddit thread of the shower thought',
     },
   ],
@@ -117,7 +117,7 @@ async function importData() {
 
 // Create the schema
 try {
-  // await client.schema.classDeleter().withClassName('ShowerThought').do();  // uncomment to delete all objects
+  await client.schema.classDeleter().withClassName('ShowerThought').do();  // uncomment to delete all objects
   await client.schema.classCreator().withClass(showerThoughtClass).do();
 } catch (e) {
   // If the schema already exists, that's fine. Otherwise, re-throw.

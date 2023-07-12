@@ -14,11 +14,11 @@ https://shower-thoughts-weaviate.dandv.me/
    cd shower-thoughts-weaviate
    npm install
 
-2. Optionally update the shower thoughts JSON file. The `shower-thoughts.json` from the repo is up-to-date as of 2023-April-04.
+2. Optionally update the shower thoughts JSON file. The `shower-thoughts.json` from the repo is up-to-date as of 2023-July-12.
    ```bash
    npm run reddit  # updates shower-thoughts.json from reddit.com
 
-3. Create a Weaviate instance. This can be as simple as running the single-executable Linux binary from the [latest release](https://github.com/weaviate/weaviate/releases), or signing up for a [free Weaviate Cloud Services sandbox](https://console.weaviate.cloud), or running a [Docker container](https://weaviate.io/developers/weaviate/installation) locally.
+3. Create a Weaviate instance. This can be as simple as running the binary from the [latest release](https://github.com/weaviate/weaviate/releases), or signing up for a [free Weaviate Cloud Services sandbox](https://console.weaviate.cloud), or running a [Docker container](https://weaviate.io/developers/weaviate/installation) locally.
 
 4. Create a `.env` file in the project directory with the following keys:
    ```text

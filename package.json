@@ -35,7 +35,7 @@
     "http-proxy-middleware": "^2.0.6",
     "node-fetch": "^3.2.10",
     "parcel": "^2.7.0",
-    "weaviate-ts-client": "^1.0.0-beta.3"
+    "weaviate-ts-client": "^1.4.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.39.0",
